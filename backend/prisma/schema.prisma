@@ -1,0 +1,239 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Enums
+enum UserRole {
+  USER
+  PREMIUM
+  ADMIN
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+// User Model
+model User {
+  id            String   @id @default(cuid())
+  email         String   @unique
+  password      String
+  firstName     String?
+  lastName      String?
+  role          UserRole @default(USER)
+  isVerified    Boolean  @default(false)
+  
+  // Subscription
+  subscription  Subscription?
+  
+  // Relationships
+  predictions   Prediction[]
+  favorites     FavoriteTeam[]
+  watchlist     WatchlistPlayer[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([email])
+}
+
+model Subscription {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status        SubscriptionStatus @default(ACTIVE)
+  plan          String   // "premium", "pro", etc.
+  startDate     DateTime @default(now())
+  endDate       DateTime?
+  
+  @@index([userId])
+}
+
+// Team Model
+model Team {
+  id            Int      @id @default(autoincrement())
+  name          String   @unique
+  abbreviation  String   @unique
+  city          String
+  conference    String   // "Eastern" or "Western"
+  division      String
+  
+  // Styling
+  primaryColor  String?  // Hex color
+  secondaryColor String?
+  logoUrl       String?
+  
+  // Stats
+  wins          Int      @default(0)
+  losses        Int      @default(0)
+  
+  // Relationships
+  players       Player[]
+  homeGames     Game[]   @relation("homeTeam")
+  awayGames     Game[]   @relation("awayTeam")
+  predictions   Prediction[]
+  favorites     FavoriteTeam[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([abbreviation])
+}
+
+// Player Model
+model Player {
+  id            Int      @id @default(autoincrement())
+  nbaId         Int?     @unique
+  firstName     String
+  lastName      String
+  number        Int?
+  position      String   // "PG", "SG", "SF", "PF", "C"
+  height        String?  // "6'7\""
+  weight        Int?     // pounds
+  
+  // Team
+  teamId        Int?
+  team          Team?    @relation(fields: [teamId], references: [id], onDelete: SetNull)
+  
+  // Stats
+  pointsPerGame Float    @default(0)
+  reboundsPerGame Float  @default(0)
+  assistsPerGame Float   @default(0)
+  fieldGoalPercentage Float @default(0)
+  threePointPercentage Float @default(0)
+  
+  // Relationships
+  injuries      Injury[]
+  watchlist     WatchlistPlayer[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([teamId])
+}
+
+// Game Model
+model Game {
+  id            Int      @id @default(autoincrement())
+  nbaId         Int?     @unique
+  
+  // Teams
+  homeTeamId    Int
+  homeTeam      Team     @relation("homeTeam", fields: [homeTeamId], references: [id])
+  awayTeamId    Int
+  awayTeam      Team     @relation("awayTeam", fields: [awayTeamId], references: [id])
+  
+  // Scores
+  homeScore     Int?
+  awayScore     Int?
+  
+  // Timing
+  gameDate      DateTime
+  status        String   // "Scheduled", "InProgress", "Final"
+  season        Int      // 2023, 2024, etc.
+  
+  // Stats
+  homeOffRtg    Float?   // Offensive Rating
+  homeDefRtg    Float?   // Defensive Rating
+  awayOffRtg    Float?
+  awayDefRtg    Float?
+  pace          Float?
+  
+  // Relationships
+  predictions   Prediction[]
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([gameDate])
+  @@index([homeTeamId])
+  @@index([awayTeamId])
+  @@index([status])
+}
+
+// Injury Model
+model Injury {
+  id            Int      @id @default(autoincrement())
+  playerId      Int
+  player        Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  
+  status        String   // "Out", "Questionable", "Day-to-Day"
+  description   String?
+  startDate     DateTime
+  estimatedReturn DateTime?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([playerId])
+  @@index([startDate])
+}
+
+// Prediction Model
+model Prediction {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  
+  gameId        Int
+  game          Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  
+  // Team being predicted
+  predictedTeamId Int
+  predictedTeam   Team   @relation(fields: [predictedTeamId], references: [id])
+  
+  // Prediction Details
+  projectedScore Int
+  winProbability Float  // 0-100
+  confidenceScore Float // 0-100
+  reasoning      String // JSON with bullet points
+  
+  // Metadata
+  predictionType String // "Spread", "Moneyline", "Over/Under", "Props"
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([userId])
+  @@index([gameId])
+  @@index([predictedTeamId])
+}
+
+// Favorite Team
+model FavoriteTeam {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  teamId        Int
+  team          Team     @relation(fields: [teamId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime @default(now())
+  
+  @@unique([userId, teamId])
+  @@index([userId])
+}
+
+// Watchlist Player
+model WatchlistPlayer {
+  id            Int      @id @default(autoincrement())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  playerId      Int
+  player        Player   @relation(fields: [playerId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime @default(now())
+  
+  @@unique([userId, playerId])
+  @@index([userId])
+}

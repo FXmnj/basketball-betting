@@ -1,0 +1,145 @@
+{
+  "project_name": "Football_AI_Prediction_Platform",
+  "design_philosophy": {
+    "theme": "dark_mode_mandatory",
+    "aesthetic": "Professional Trading Terminal / Quantitative Analytics",
+    "core_principles": [
+      "Density over decoration",
+      "Data legibility is paramount",
+      "High contrast for critical signals (Value Bets)",
+      "Zero clutter - every pixel must serve a purpose"
+    ]
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Chivo, sans-serif",
+      "body": "Manrope, sans-serif",
+      "data": "JetBrains Mono, monospace"
+    },
+    "scale": {
+      "h1": "text-4xl font-bold tracking-tight",
+      "h2": "text-2xl font-semibold tracking-tight",
+      "h3": "text-xl font-medium",
+      "body": "text-sm leading-relaxed",
+      "small": "text-xs text-muted-foreground",
+      "data_large": "text-lg font-mono font-bold",
+      "data_small": "text-xs font-mono"
+    },
+    "imports": [
+      "@import url('https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&family=JetBrains+Mono:wght@400;500;700&family=Manrope:wght@400;500;600;700&display=swap');"
+    ]
+  },
+  "colors": {
+    "background": {
+      "app": "#09090B",
+      "card": "#18181B",
+      "sidebar": "#050505",
+      "hover": "#27272A"
+    },
+    "text": {
+      "primary": "#FAFAFA",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B",
+      "accent": "#10B981"
+    },
+    "status": {
+      "success": "#10B981",
+      "danger": "#EF4444",
+      "warning": "#F59E0B",
+      "info": "#3B82F6",
+      "neutral": "#71717A"
+    },
+    "brand": {
+      "primary": "#10B981",
+      "secondary": "#064E3B",
+      "accent": "#F59E0B"
+    },
+    "gradients": {
+      "value_bet": "linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(245, 158, 11, 0) 100%)",
+      "high_confidence": "linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(16, 185, 129, 0) 100%)"
+    }
+  },
+  "layout": {
+    "grid_system": "Bento Grid (CSS Grid)",
+    "spacing": {
+      "container_padding": "p-6 md:p-8",
+      "card_gap": "gap-4",
+      "section_gap": "gap-8"
+    },
+    "containers": {
+      "dashboard": "grid grid-cols-1 md:grid-cols-12 gap-4",
+      "match_card": "col-span-12 md:col-span-6 lg:col-span-4",
+      "sidebar": "w-64 fixed h-full border-r border-white/10"
+    },
+    "border_radius": {
+      "default": "rounded-md",
+      "card": "rounded-lg",
+      "button": "rounded-md"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-4 py-2 rounded-md transition-all shadow-[0_0_10px_rgba(16,185,129,0.2)]",
+      "secondary": "bg-zinc-800 hover:bg-zinc-700 text-zinc-100 border border-zinc-700 px-4 py-2 rounded-md transition-all",
+      "ghost": "hover:bg-zinc-800 text-zinc-400 hover:text-white px-3 py-1.5 rounded-md transition-all"
+    },
+    "cards": {
+      "base": "bg-zinc-900/50 border border-white/5 backdrop-blur-sm p-5 rounded-lg hover:border-white/10 transition-colors",
+      "highlight": "bg-zinc-900/80 border border-emerald-500/30 shadow-[0_0_15px_rgba(16,185,129,0.05)] p-5 rounded-lg"
+    },
+    "badges": {
+      "value": "bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2 py-0.5 text-xs font-mono rounded-sm uppercase tracking-wider",
+      "live": "bg-red-500/10 text-red-500 border border-red-500/20 px-2 py-0.5 text-xs font-mono rounded-sm animate-pulse",
+      "probability": "bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 text-xs font-mono rounded-sm"
+    },
+    "inputs": {
+      "base": "bg-zinc-950 border border-zinc-800 focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-sm rounded-md px-3 py-2 w-full transition-all placeholder:text-zinc-600"
+    }
+  },
+  "visual_enhancers": {
+    "borders": "1px solid rgba(255, 255, 255, 0.08)",
+    "shadows": {
+      "card": "0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)",
+      "glow": "0 0 20px rgba(16, 185, 129, 0.15)"
+    },
+    "glassmorphism": "backdrop-filter: blur(12px); background: rgba(24, 24, 27, 0.7);"
+  },
+  "charts_and_data": {
+    "library": "Recharts (via Shadcn)",
+    "colors": ["#10B981", "#3B82F6", "#F59E0B", "#EF4444", "#8B5CF6"],
+    "style": {
+      "grid": "stroke-zinc-800 stroke-dasharray-4",
+      "tooltip": "bg-zinc-900 border border-zinc-700 text-zinc-100 rounded-md shadow-xl",
+      "axis": "text-xs text-zinc-500 font-mono"
+    }
+  },
+  "image_urls": {
+    "hero_background": "https://images.unsplash.com/photo-1614632537197-38a17061c2bd?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "login_bg": "https://images.unsplash.com/photo-1767884162073-b0e3741aad63?crop=entropy&cs=srgb&fm=jpg&q=85",
+    "placeholder_team": "https://via.placeholder.com/64/18181b/52525b?text=TEAM"
+  },
+  "instructions_to_main_agent": [
+    "1. SETUP: Install 'lucide-react', 'recharts', 'clsx', 'tailwind-merge' immediately.",
+    "2. FONTS: Add the Google Fonts import to 'index.css' at the very top.",
+    "3. LAYOUT: Create a 'DashboardLayout' component that includes the Sidebar and Topbar. All dashboard pages must be wrapped in this.",
+    "4. DATA DISPLAY: Use 'JetBrains Mono' for ALL odds, probabilities, and financial figures. Use 'Manrope' for team names and UI labels.",
+    "5. VALUE BETS: This is the core feature. Value bets must visually 'pop' using the Amber/Gold accent color and subtle glow effects.",
+    "6. MOBILE: Ensure the sidebar collapses to a hamburger menu on mobile. Tables must be scrollable horizontally on small screens.",
+    "7. SHADCN: Customize the default Shadcn components. Remove 'rounded-xl' and replace with 'rounded-md'. Change default borders to 'border-zinc-800'.",
+    "8. CHARTS: When implementing charts, ensure the X/Y axis lines are subtle (#27272A) and the data lines are vibrant.",
+    "9. TESTING: Add 'data-testid' to all interactive elements (buttons, inputs, cards)."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": [
+    "Dark colors look good when used independently without gradients. DO NOT use dark colors as gradients.",
+    "Don't make generic centered layouts, simplistic gradients, and uniform styling.",
+    "Create depth through layered design elements with z-index hierarchy.",
+    "Use glass-morphism effects with backdrop filters (12-24px blur) for modals and sticky headers.",
+    "You MUST NOT apply universal transition. Eg: 'transition: all'. This results in breaking transforms.",
+    "You MUST NOT center align the app container.",
+    "Always use modern button styles like pill-shaped, or sharp button with interaction animations.",
+    "NEVER use AI assistant Emoji characters like 🤖🧠 etc for icons. Use Lucide React icons.",
+    "Every interaction needs micro-animations - hover states, transitions.",
+    "Use 2-3x more spacing than feels comfortable. Cramped designs look cheap.",
+    "Subtle grain textures, noise overlays, custom cursors, selection states, and loading animations: separates good from extraordinary."
+  ]
+}

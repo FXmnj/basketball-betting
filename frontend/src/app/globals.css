@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  @apply transition-colors duration-200;
+}
+
+html {
+  @apply scroll-smooth;
+}
+
+body {
+  @apply bg-dark-bg text-dark-text antialiased;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+}
+
+/* Court theme */
+.court-background {
+  @apply bg-gradient-to-b from-dark-surface to-dark-bg;
+}
+
+.court-border {
+  @apply border border-dark-border;
+}
+
+.court-card {
+  @apply bg-dark-surface border border-dark-border rounded-lg p-4;
+}
+
+.court-card-lg {
+  @apply bg-dark-surface border border-dark-border rounded-lg p-6;
+}
+
+.court-hover {
+  @apply hover:bg-dark-hover cursor-pointer transition-colors;
+}
+
+/* Button styles */
+.btn {
+  @apply px-4 py-2 rounded-lg font-medium transition-all duration-200;
+}
+
+.btn-primary {
+  @apply bg-nba-accent hover:bg-red-600 text-white;
+}
+
+.btn-secondary {
+  @apply bg-dark-surface border border-dark-border hover:bg-dark-hover text-dark-text;
+}
+
+.btn-ghost {
+  @apply hover:bg-dark-hover text-dark-text;
+}
+
+/* Input styles */
+.input {
+  @apply w-full px-4 py-2 bg-dark-surface border border-dark-border rounded-lg text-dark-text placeholder-dark-muted focus:outline-none focus:ring-2 focus:ring-nba-accent focus:border-transparent;
+}
+
+/* Typography */
+.heading-1 {
+  @apply text-4xl font-bold;
+}
+
+.heading-2 {
+  @apply text-3xl font-bold;
+}
+
+.heading-3 {
+  @apply text-2xl font-bold;
+}
+
+.heading-4 {
+  @apply text-xl font-bold;
+}
+
+.text-muted {
+  @apply text-dark-muted;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .court-card {
+    @apply p-3;
+  }
+
+  .court-card-lg {
+    @apply p-4;
+  }
+
+  .heading-1 {
+    @apply text-2xl;
+  }
+
+  .heading-2 {
+    @apply text-xl;
+  }
+}
