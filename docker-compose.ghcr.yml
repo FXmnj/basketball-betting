@@ -21,7 +21,7 @@ services:
       - courtvision-network
 
   backend:
-    image: ghcr.io/Forexbase/basketball-betting-backend:main
+    image: ghcr.io/FXmnj/basketball-betting-backend:main
     container_name: courtvision-backend
     depends_on:
       postgres:
@@ -40,7 +40,7 @@ services:
     restart: unless-stopped
 
   frontend:
-    image: ghcr.io/Forexbase/basketball-betting-frontend:main
+    image: ghcr.io/FXmnj/basketball-betting-frontend:main
     container_name: courtvision-frontend
     environment:
       NODE_ENV: production
