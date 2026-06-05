@@ -10,6 +10,9 @@ COPY frontend/next.config.js ./
 COPY frontend/tailwind.config.js ./
 COPY frontend/postcss.config.js ./
 COPY frontend/src ./src
+
+# Create and copy public directory
+RUN mkdir -p ./public
 COPY frontend/public ./public
 
 # Install dependencies
@@ -31,6 +34,7 @@ RUN npm install --omit=dev --legacy-peer-deps
 
 # Copy built application
 COPY --from=builder /app/.next ./.next
+RUN mkdir -p ./public
 COPY --from=builder /app/public ./public
 COPY frontend/next.config.js ./
 
